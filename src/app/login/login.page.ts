@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -8,20 +9,38 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class LoginPage {
-  usuario: string = '';
-  contrasena: string = '';
-  mensajeError: string = '';
+  nombre: string = '';
+  telefono: string = '';
+  fecha: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private alertController: AlertController) {}
 
-  login() {
-    if (this.usuario === 'admin' && this.contrasena === '1234') {
-      // Usuario válido, redirige a otra página
-      this.mensajeError = '';
-      this.router.navigate(['/registro']); // o cualquier ruta que desees
-    } else {
-      // Usuario incorrecto
-      this.mensajeError = 'Usuario o contraseña incorrectos';
+  async mostrarAlerta(mensaje: string) {
+    const alerta = await this.alertController.create({
+      header: 'Error',
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alerta.present();
+  }
+
+  async login() {
+    if (!this.nombre || this.nombre.trim().length < 3) {
+      await this.mostrarAlerta('El nombre es obligatorio y debe tener al menos 3 caracteres.');
+      return;
     }
+
+    if (!this.telefono || this.telefono.trim() === '') {
+      await this.mostrarAlerta('El teléfono es obligatorio.');
+      return;
+    }
+
+    if (!this.fecha || this.fecha.trim() === '') {
+      await this.mostrarAlerta('La fecha de nacimiento es obligatoria.');
+      return;
+    }
+
+    //  redirige
+    this.router.navigate(['/registro']);
   }
 }

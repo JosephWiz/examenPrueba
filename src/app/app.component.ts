@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'login', url: '/login', icon: 'accessibility' },
-    { title: 'registro', url: '/registro', icon: 'person-add' },
-    { title: 'eliminar', url: '/eliminar', icon: 'trash' },
+    { title: 'Registro', url: '/login', icon: 'person-add' },
+    { title: 'Login', url: '/registro', icon: 'accessibility' },
+    { title: 'Eliminar', url: '/eliminar', icon: 'trash' },
 
   ];
   public labels = ['Jose Andres Navarrete B',];
